@@ -1,0 +1,10 @@
+*.log
+*.log.*
+*.xlsx
+*.py[cod]
+*.INFO*
+*.pcd
+*.record.0*
+out-artifact*
+point_cloud
+seed-random*
