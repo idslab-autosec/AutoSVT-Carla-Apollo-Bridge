@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "type": "sensor.lidar.ray_cast",
+                    "type": "sensor.lidar.ray_cast_with_fog",
                     "id": "lidar128",
                     "spawn_point": {
                         "x": 0.0,
