@@ -88,7 +88,7 @@ Once the Modules are enabled, in the Module Controller, disable "Recorder" (if d
 Click on the destination in the "Route Editing" map, and then click "Send Routing Request". The ego vehicle controlled by Apollo will start autonomous driving in Carla!
 ![image](docs/images/apollo_setup4.png)
 
-### 4. Scripts
+### 5. Scripts
 This project provides some Python scripts for Carla, making testing more convenient. For detailed information, please visit [scripts.md](docs/scripts.md).
 
 ## Configuration
