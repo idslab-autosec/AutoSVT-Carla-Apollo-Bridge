@@ -48,6 +48,11 @@ TODO
 
 ## Quick Start
 ### 1. Run AutoSVT-Carla
+If you would like to run Carla with docker,
+```bash
+docker-compose up
+```
+
 ```bash
 cd AutoSVT-Carla
 ./CarlaUE4.sh
