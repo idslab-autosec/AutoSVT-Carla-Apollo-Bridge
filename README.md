@@ -53,6 +53,7 @@ If you would like to run Carla with docker,
 docker-compose up
 ```
 
+Otherwise, you can run Carla-release in local environment,
 ```bash
 cd AutoSVT-Carla
 ./CarlaUE4.sh
