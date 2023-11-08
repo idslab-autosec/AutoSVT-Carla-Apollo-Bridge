@@ -1,0 +1,8 @@
+pygame
+numpy
+pycyber
+pyyaml
+transforms3d
+protobuf==3.19.4
+opencv-python
+scipy
