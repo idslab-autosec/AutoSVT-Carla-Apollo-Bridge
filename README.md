@@ -50,6 +50,7 @@ TODO
 ### 1. Run AutoSVT-Carla
 If you would like to run Carla with docker,
 ```bash
+cd AutoSVT-Carla-Apollo-Bridge
 docker-compose up
 ```
 
