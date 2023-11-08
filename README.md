@@ -13,7 +13,9 @@ Our simulation encompasses all modules from perception to control. Carla sends s
 
 
 ### 1. Install AutoSVT-Carla
-TODO
+```bash
+docker pull idslabautosec/carla-fog:v1
+```
 
 ### 2. Install Apollo
 Please follow the [official Apollo documentation](https://github.com/ApolloAuto/apollo) for installation.
@@ -46,6 +48,12 @@ TODO
 
 ## Quick Start
 ### 1. Run AutoSVT-Carla
+If you would like to run Carla with docker,
+```bash
+docker-compose up
+```
+
+Otherwise, you can run Carla-release in local environment,
 ```bash
 cd AutoSVT-Carla
 ./CarlaUE4.sh
