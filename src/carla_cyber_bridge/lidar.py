@@ -79,10 +79,8 @@ class Lidar(Sensor):
             ('x', numpy.float32),
             ('y', numpy.float32),
             ('z', numpy.float32),
-            ('intensity', numpy.uint32),
-            ('original_intensity', numpy.uint32),
-            ('is_modified', numpy.uint32),
-            ('actor_type', numpy.uint32)
+            ('intensity', numpy.float32),
+            ('object_tag', numpy.uint32),
         ])
         lidar_data = numpy.fromstring(
             bytes(carla_lidar_measurement.raw_data), dtype=lidar_data_dtype)
