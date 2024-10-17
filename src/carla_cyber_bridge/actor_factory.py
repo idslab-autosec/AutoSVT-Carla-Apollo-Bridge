@@ -31,7 +31,7 @@ from carla_cyber_bridge.ego_vehicle import EgoVehicle
 from carla_cyber_bridge.gnss import Gnss
 from carla_cyber_bridge.imu import ImuSensor
 from carla_cyber_bridge.lane_invasion_sensor import LaneInvasionSensor
-from carla_cyber_bridge.lidar import Lidar, SemanticLidar
+from carla_cyber_bridge.lidar import Lidar, SemanticLidar, FogLidar
 # from carla_cyber_bridge.marker_sensor import MarkerSensor
 # from carla_cyber_bridge.object_sensor import ObjectSensor
 # from carla_cyber_bridge.odom_sensor import OdometrySensor
@@ -427,7 +427,7 @@ class ActorFactory(object):
                                           self.node, carla_actor,
                                           self.sync_mode)
                 elif carla_actor.type_id.endswith("sensor.lidar.ray_cast_with_fog"):
-                    actor = Lidar(uid, name, parent, spawn_pose, self.node,
+                    actor = FogLidar(uid, name, parent, spawn_pose, self.node,
                                   carla_actor, self.sync_mode)
             elif carla_actor.type_id.startswith("sensor.other.radar"):
                 actor = Radar(uid, name, parent, spawn_pose, self.node,

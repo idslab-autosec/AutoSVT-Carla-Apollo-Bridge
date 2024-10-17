@@ -24,7 +24,7 @@
                 },
                 {
                     "type": "sensor.lidar.ray_cast_with_fog",
-                    "id": "lidar128",
+                    "id": "lidar64",
                     "spawn_point": {
                         "x": 0.0,
                         "y": 0.0,
@@ -35,7 +35,7 @@
                     },
                     "other_attr": {
                         "range": 100,
-                        "channels": 128,
+                        "channels": 64,
                         "points_per_second": 1300000,
                         "upper_fov": 2.0,
                         "lower_fov": -26.8,

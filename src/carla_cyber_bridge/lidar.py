@@ -80,6 +80,92 @@ class Lidar(Sensor):
             ('y', numpy.float32),
             ('z', numpy.float32),
             ('intensity', numpy.float32),
+        ])
+        lidar_data = numpy.fromstring(
+            bytes(carla_lidar_measurement.raw_data), dtype=lidar_data_dtype)
+        lidar_data = numpy.array(lidar_data.tolist())
+    
+        point_cloud_msg = PointCloud()
+        point_cloud_msg.header.CopyFrom(self.parent.get_msg_header(timestamp=carla_lidar_measurement.timestamp))
+        lidar_id = self.carla_actor.attributes['role_name']
+
+        point_cloud_msg.header.frame_id = lidar_id
+        point_cloud_msg.frame_id = lidar_id
+
+        point_cloud_msg.measurement_time = carla_lidar_measurement.timestamp
+
+        x_list = lidar_data[:, 0]
+        y_list = -lidar_data[:, 1]
+        z_list = lidar_data[:, 2]
+        i_list = lidar_data[:, 3]
+
+        cyber_point_list = [PointXYZIT(x=x, y=y, z=z, intensity=int(i)) for x, y, z, i in zip(x_list, y_list, z_list, i_list)]
+        point_cloud_msg.point.extend(cyber_point_list)
+        self.lidar_writer.write(point_cloud_msg)
+
+class FogLidar(Sensor):
+
+    """
+    Actor implementation details for lidars
+    """
+
+    def __init__(self, uid, name, parent, relative_spawn_pose, node, carla_actor, synchronous_mode):
+        """
+        Constructor
+
+        :param uid: unique identifier for this object
+        :type uid: int
+        :param name: name identiying this object
+        :type name: string
+        :param parent: the parent of this
+        :type parent: carla_cyber_bridge.Parent
+        :param relative_spawn_pose: the spawn pose of this
+        :type relative_spawn_pose: geometry_msgs.Pose
+        :param node: node-handle
+        :type node: CompatibleNode
+        :param carla_actor: carla actor object
+        :type carla_actor: carla.Actor
+        :param synchronous_mode: use in synchronous mode?
+        :type synchronous_mode: bool
+        """
+        super(FogLidar, self).__init__(uid=uid,
+                                    name=name,
+                                    parent=parent,
+                                    relative_spawn_pose=relative_spawn_pose,
+                                    node=node,
+                                    carla_actor=carla_actor,
+                                    synchronous_mode=synchronous_mode)
+        self.lidar_writer = node.new_writer(self.get_topic_prefix() + "/compensator/PointCloud2",
+                                            PointCloud,
+                                            qos_depth=10)
+        self.listen()
+            
+    def destroy(self):
+        super(FogLidar, self).destroy()
+
+    def get_topic_prefix(self):
+        """
+        get the topic name of the current entity.
+
+        :return: the final topic name of this object
+        :rtype: string
+        """
+        return "/apollo/sensor/" + self.name
+
+    # pylint: disable=arguments-differ
+    def sensor_data_updated(self, carla_lidar_measurement):
+        """
+        Function to transform the a received lidar measurement into a ROS point cloud message
+
+        :param carla_lidar_measurement: carla lidar measurement object
+        :type carla_lidar_measurement: carla.LidarMeasurement
+        """
+
+        lidar_data_dtype = numpy.dtype([
+            ('x', numpy.float32),
+            ('y', numpy.float32),
+            ('z', numpy.float32),
+            ('intensity', numpy.float32),
             ('object_tag', numpy.uint32),
         ])
         lidar_data = numpy.fromstring(
@@ -103,7 +189,6 @@ class Lidar(Sensor):
         cyber_point_list = [PointXYZIT(x=x, y=y, z=z, intensity=int(i)) for x, y, z, i in zip(x_list, y_list, z_list, i_list)]
         point_cloud_msg.point.extend(cyber_point_list)
         self.lidar_writer.write(point_cloud_msg)
-
 
 class SemanticLidar(Sensor):
 
